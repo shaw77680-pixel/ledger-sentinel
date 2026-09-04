@@ -60,20 +60,23 @@ Outputs land in `outputs/`.
 
 ## Project structure
 
-```
-data/
-  generate_data.py        synthetic 3-way dataset generator (ground truth included)
-  invoices.csv / gl_ledger.csv / bank_transactions.csv / ground_truth.csv
-pipeline/
-  match_pipeline.py        Tier 1-4 matching engine
-  metrics.py                scores outputs against ground_truth.csv
-  tier3_llm_agent.py        real Claude API + tool-use version of Tier 3 (reference)
-outputs/
-  match_results.csv         every resolved record: tier, confidence, justification
-  exceptions.csv             every unresolved record: category, justification
-  metrics.json               the scorecard above, machine-readable
-run_pipeline.py              one-command entry point
-```
+Project structure
+README.md                  project overview and results
+generate_data.py           synthetic 3-way dataset generator
+invoices.csv               synthetic invoice dataset
+gl_ledger.csv              synthetic GL ledger dataset
+bank_transactions.csv      synthetic bank transaction dataset
+ground_truth.csv           known answer key for evaluation
+match_pipeline.py          Tier 1-4 matching engine
+metrics.py                 scores outputs against ground truth
+tier3_llm_agent.py         Claude API + tool-use version of Tier 3
+run_pipeline.py            one-command pipeline entry point
+dashboard.html             reconciliation results dashboard
+match_results.csv          resolved records with tier, confidence, justification
+exceptions.csv             unresolved records with category and justification
+metrics.json               machine-readable scorecard
+requirements.txt           Python dependencies
+
 
 ## What would change in production
 
