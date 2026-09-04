@@ -1,0 +1,61 @@
+invoice_id,gl_id,bank_txn_id,category,note
+INV-1001,GL-5001,BTX-9001,clean_match,"Exact 3-way match, same date/amount"
+INV-1002,GL-5002,BTX-9002,clean_match,"Exact 3-way match, same date/amount"
+INV-1003,GL-5003,BTX-9003,amount_discrepancy,Bank amount differs from invoice by 121.46 (fee/FX rounding)
+INV-1004,GL-5004,BTX-9004,clean_match,"Exact 3-way match, same date/amount"
+INV-1005,GL-5005,BTX-9005,clean_match,"Exact 3-way match, same date/amount"
+INV-1006,GL-5006,BTX-9006,clean_match,"Exact 3-way match, same date/amount"
+INV-1007,GL-5007,BTX-9007 (legit) / BTX-9008 (duplicate),duplicate_payment,Invoice paid twice; only the first bank line is the legitimate match
+INV-1008,NONE,NONE,orphan_invoice,Invoice has no ledger posting and no bank payment
+INV-1009,GL-5008,BTX-9009,clean_match,"Exact 3-way match, same date/amount"
+INV-1010,GL-5009,BTX-9010,clean_match,"Exact 3-way match, same date/amount"
+INV-1011,GL-5010,BTX-9011,clean_match,"Exact 3-way match, same date/amount"
+INV-1012,GL-5011,BTX-9012,clean_match,"Exact 3-way match, same date/amount"
+INV-1013,GL-5012,BTX-9013,clean_match,"Exact 3-way match, same date/amount"
+INV-1014,GL-5013,BTX-9014,timing_difference,"Bank settled T+1, same amount"
+INV-1015,GL-5014,BTX-9015,clean_match,"Exact 3-way match, same date/amount"
+INV-1016+INV-1017,GL-5015+GL-5016,BTX-9016,combined_payment,Two invoices paid via a single bank line that sums to both
+INV-1018,GL-5017,BTX-9017,clean_match,"Exact 3-way match, same date/amount"
+INV-1019,GL-5018,BTX-9018,clean_match,"Exact 3-way match, same date/amount"
+INV-1020+INV-1021,GL-5019+GL-5020,BTX-9019,combined_payment,Two invoices paid via a single bank line that sums to both
+INV-1022,GL-5021,BTX-9020,clean_match,"Exact 3-way match, same date/amount"
+INV-1023,GL-5022,BTX-9021,clean_match,"Exact 3-way match, same date/amount"
+INV-1024,GL-5023,BTX-9022,clean_match,"Exact 3-way match, same date/amount"
+INV-1025,GL-5024,BTX-9023,clean_match,"Exact 3-way match, same date/amount"
+INV-1026,GL-5025,BTX-9024,clean_match,"Exact 3-way match, same date/amount"
+INV-1027,GL-5026,BTX-9025,timing_difference,"Bank settled T+3, same amount"
+INV-1028,GL-5027,BTX-9026,clean_match,"Exact 3-way match, same date/amount"
+INV-1029,GL-5028,BTX-9027,clean_match,"Exact 3-way match, same date/amount"
+INV-1030,GL-5029,BTX-9028,timing_difference,"Bank settled T+1, same amount"
+INV-1031,GL-5030,BTX-9029,clean_match,"Exact 3-way match, same date/amount"
+INV-1032,GL-5031,BTX-9030,amount_discrepancy,Bank amount differs from invoice by 68.52 (fee/FX rounding)
+INV-1033,GL-5032,BTX-9031,clean_match,"Exact 3-way match, same date/amount"
+INV-1034,GL-5033,BTX-9032,clean_match,"Exact 3-way match, same date/amount"
+INV-1035,GL-5034,BTX-9033,timing_difference,"Bank settled T+2, same amount"
+INV-1036,GL-5035,BTX-9034,clean_match,"Exact 3-way match, same date/amount"
+INV-1037,GL-5036,BTX-9035+BTX-9036,split_payment,One invoice paid via two bank lines that sum to invoice amount
+INV-1038,GL-5037,BTX-9037,clean_match,"Exact 3-way match, same date/amount"
+INV-1039,GL-5038,BTX-9038,clean_match,"Exact 3-way match, same date/amount"
+INV-1040,GL-5039,BTX-9039,timing_difference,"Bank settled T+3, same amount"
+INV-1041,GL-5040,BTX-9040,clean_match,"Exact 3-way match, same date/amount"
+INV-1042,GL-5041,BTX-9041,amount_discrepancy,Bank amount differs from invoice by 65.61 (fee/FX rounding)
+INV-1043,GL-5042,BTX-9042,clean_match,"Exact 3-way match, same date/amount"
+INV-1044,GL-5043,BTX-9043,timing_difference,"Bank settled T+2, same amount"
+INV-1045,GL-5044,BTX-9044 (legit) / BTX-9045 (duplicate),duplicate_payment,Invoice paid twice; only the first bank line is the legitimate match
+INV-1046,GL-5045,BTX-9046,clean_match,"Exact 3-way match, same date/amount"
+INV-1047,GL-5046,BTX-9047,clean_match,"Exact 3-way match, same date/amount"
+INV-1048,GL-5047,BTX-9048,clean_match,"Exact 3-way match, same date/amount"
+INV-1049,GL-5048,BTX-9049,clean_match,"Exact 3-way match, same date/amount"
+INV-1050,GL-5049,BTX-9050,clean_match,"Exact 3-way match, same date/amount"
+INV-1051,GL-5050,BTX-9051+BTX-9052,split_payment,One invoice paid via two bank lines that sum to invoice amount
+INV-1052,GL-5051,BTX-9053,timing_difference,"Bank settled T+3, same amount"
+INV-1053,GL-5052,BTX-9054,clean_match,"Exact 3-way match, same date/amount"
+INV-1054,GL-5053,BTX-9055 (legit) / BTX-9056 (duplicate),duplicate_payment,Invoice paid twice; only the first bank line is the legitimate match
+INV-1055,GL-5054,BTX-9057,clean_match,"Exact 3-way match, same date/amount"
+INV-1056,GL-5055,BTX-9058,clean_match,"Exact 3-way match, same date/amount"
+INV-1057,GL-5056,BTX-9059,clean_match,"Exact 3-way match, same date/amount"
+INV-1058,GL-5057,BTX-9060,clean_match,"Exact 3-way match, same date/amount"
+INV-1059,GL-5058,BTX-9061,timing_difference,"Bank settled T+3, same amount"
+INV-1060,GL-5059,BTX-9062,clean_match,"Exact 3-way match, same date/amount"
+INV-1061,GL-5060,BTX-9063,clean_match,"Exact 3-way match, same date/amount"
+INV-1062,GL-5061,BTX-9064,timing_difference,"Bank settled T+1, same amount"

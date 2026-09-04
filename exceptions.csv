@@ -1,0 +1,7 @@
+record_type,id,category,confidence,justification
+invoice,INV-1008,missing_gl_posting,0.0,INV-1008 has no corresponding GL posting; cannot verify against ledger.
+invoice,INV-1017,no_bank_payment_found,0.0,INV-1017 has a GL posting but no matching bank transaction found within tolerance. Possible orphan invoice or unrecorded payment.
+invoice,INV-1053,no_bank_payment_found,0.0,INV-1053 has a GL posting but no matching bank transaction found within tolerance. Possible orphan invoice or unrecorded payment.
+bank_txn,BTX-9008,orphan_bank_txn,0.0,Bank line 'PMT REF INV-1007 INITECH SOL' (amount 8686.25) references no known invoice or matches none within tolerance.
+bank_txn,BTX-9045,orphan_bank_txn,0.0,Bank line 'PMT REF INV-1045 NORTHWIND TRDG' (amount 3746.52) references no known invoice or matches none within tolerance.
+bank_txn,BTX-9056,orphan_bank_txn,0.0,Bank line 'PMT REF INV-1054 UMBRELLA SUP' (amount 17928.95) references no known invoice or matches none within tolerance.

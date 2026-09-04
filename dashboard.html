@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ledger Sentinel — Reconciliation Scorecard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#0F1712; --surface:#16211B; --surface2:#1C2A22; --border:#2A3B31;
+  --text:#ECE7DD; --text-sec:#9AAA9F; --text-muted:#647065;
+  --green:#4E9A73; --green-dim:#2E4A3B; --amber:#D2933D; --amber-dim:#4A3A20;
+  --red:#C1584A; --red-dim:#4A2620;
+  --serif:'Spectral',Georgia,serif; --mono:'IBM Plex Mono',ui-monospace,monospace; --sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);padding:48px 32px;}
+.wrap{max-width:980px;margin:0 auto;}
+
+header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border);padding-bottom:28px;margin-bottom:32px;}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--green);text-transform:uppercase;margin:0 0 10px;}
+h1{font-family:var(--serif);font-weight:600;font-size:36px;margin:0 0 8px;letter-spacing:-.01em;}
+.tagline{color:var(--text-sec);font-size:15px;margin:0;max-width:520px;line-height:1.6;}
+
+.stamp{position:relative;flex:none;width:150px;height:150px;transform:rotate(-7deg);
+  border:2.5px solid var(--green);border-radius:50%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;font-family:var(--mono);color:var(--green);
+  outline:1px solid var(--green);outline-offset:-8px;}
+.stamp .n{font-size:30px;font-weight:600;line-height:1;letter-spacing:-.02em;}
+.stamp .lab{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;text-align:center;}
+.stamp .lab2{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);opacity:.8;margin-top:2px;}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:36px;}
+.kpi{background:var(--surface);padding:20px 18px;}
+.kpi .label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.kpi .val{font-family:var(--mono);font-size:28px;font-weight:600;letter-spacing:-.01em;}
+.kpi .sub{font-size:12px;color:var(--text-sec);margin-top:6px;}
+.kpi.good .val{color:var(--green);}
+.kpi.honest .val{color:var(--amber);}
+
+section{margin-bottom:40px;}
+h2{font-family:var(--serif);font-weight:600;font-size:19px;margin:0 0 4px;}
+.section-sub{font-size:13px;color:var(--text-muted);margin:0 0 18px;}
+
+.funnel{display:flex;flex-direction:column;gap:10px;}
+.frow{display:grid;grid-template-columns:150px 1fr 54px;align-items:center;gap:14px;}
+.frow .tname{font-family:var(--mono);font-size:12.5px;color:var(--text-sec);}
+.ftrack{background:var(--surface);height:22px;border:1px solid var(--border);position:relative;}
+.ffill{height:100%;background:var(--green-dim);border-right:2px solid var(--green);}
+.frow .fcount{font-family:var(--mono);font-size:13px;text-align:right;color:var(--text);}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);
+  font-weight:500;padding:0 12px 10px;border-bottom:1px solid var(--border);}
+td{padding:11px 12px;border-bottom:1px solid var(--border);font-family:var(--mono);}
+td.cat{font-family:var(--sans);color:var(--text-sec);}
+tr:last-child td{border-bottom:none;}
+.ok{color:var(--green);}
+
+.case{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);padding:16px 18px;margin-bottom:12px;}
+.case.exc{border-left-color:var(--amber);}
+.case.false{border-left-color:var(--red);}
+.case .meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--text-muted);margin-bottom:8px;}
+.case .meta .tag{padding:2px 8px;border-radius:3px;background:var(--green-dim);color:var(--green);letter-spacing:.04em;}
+.case.exc .meta .tag{background:var(--amber-dim);color:var(--amber);}
+.case.false .meta .tag{background:var(--red-dim);color:var(--red);}
+.case p{margin:0;font-size:14px;line-height:1.6;color:var(--text);}
+.case .why{margin-top:8px;font-size:12.5px;color:var(--text-sec);font-style:italic;}
+
+footer{border-top:1px solid var(--border);padding-top:20px;font-size:12.5px;color:var(--text-muted);line-height:1.7;}
+footer b{color:var(--text-sec);font-weight:500;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <p class="eyebrow">AI Finance Controller — closed-loop reconciliation</p>
+      <h1>Ledger Sentinel</h1>
+      <p class="tagline">Three-way match across invoices, GL ledger, and bank statement. 62-record synthetic batch, known ground truth, every number below checked against the answer key.</p>
+    </div>
+    <div class="stamp">
+      <div class="n">96.7%</div>
+      <div class="lab">Match rate</div>
+      <div class="lab2">Verified · Closed</div>
+    </div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi good"><div class="label">Match rate</div><div class="val">96.7%</div><div class="sub">59 / 61 auto-resolved</div></div>
+    <div class="kpi good"><div class="label">Precision on matches</div><div class="val">98.3%</div><div class="sub">58 / 59 correct vs. ground truth</div></div>
+    <div class="kpi good"><div class="label">Exception recall</div><div class="val">100%</div><div class="sub">4 / 4 true exceptions caught</div></div>
+    <div class="kpi honest"><div class="label">False-match rate</div><div class="val">1.7%</div><div class="sub">1 record — shown below, not hidden</div></div>
+  </div>
+
+  <section>
+    <h2>Resolution funnel</h2>
+    <p class="section-sub">Escalates from cheap and deterministic to expensive and agentic — only 4 records ever needed real reasoning.</p>
+    <div class="funnel">
+      <div class="frow"><span class="tname">Tier 1 · exact</span><div class="ftrack"><div class="ffill" style="width:100%"></div></div><span class="fcount">31</span></div>
+      <div class="frow"><span class="tname">Tier 2 · vendor fuzzy</span><div class="ftrack"><div class="ffill" style="width:52%"></div></div><span class="fcount">16</span></div>
+      <div class="frow"><span class="tname">Tier 2 · timing lag</span><div class="ftrack"><div class="ffill" style="width:16%"></div></div><span class="fcount">5</span></div>
+      <div class="frow"><span class="tname">Tier 2 · FX / fee</span><div class="ftrack"><div class="ffill" style="width:10%"></div></div><span class="fcount">3</span></div>
+      <div class="frow"><span class="tname">Tier 3 · agentic</span><div class="ftrack"><div class="ffill" style="width:13%"></div></div><span class="fcount">4</span></div>
+      <div class="frow"><span class="tname">Tier 4 · exception</span><div class="ftrack"><div class="ffill" style="width:19%;background:var(--amber-dim);border-color:var(--amber)"></div></div><span class="fcount">6</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Accuracy by category</h2>
+    <p class="section-sub">The dataset was seeded with the mess a real close hits — not 62 clean records.</p>
+    <table>
+      <tr><th>Category</th><th>Records</th><th>Correct</th></tr>
+      <tr><td class="cat">Clean match</td><td>40</td><td class="ok">39</td></tr>
+      <tr><td class="cat">Timing difference</td><td>9</td><td class="ok">9</td></tr>
+      <tr><td class="cat">Combined payment</td><td>4</td><td>2</td></tr>
+      <tr><td class="cat">Amount discrepancy (FX/fee)</td><td>3</td><td class="ok">3</td></tr>
+      <tr><td class="cat">Duplicate payment</td><td>3</td><td class="ok">3</td></tr>
+      <tr><td class="cat">Split payment</td><td>2</td><td class="ok">2</td></tr>
+      <tr><td class="cat">Orphan invoice</td><td>1</td><td class="ok">1</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Workpaper log</h2>
+    <p class="section-sub">Every resolution — matched or not — comes with a one-line justification, like a controller's sign-off note.</p>
+
+    <div class="case">
+      <div class="meta"><span class="tag">tier 3 · agentic</span><span>INV-1051 · conf 0.82</span></div>
+      <p>Agent summed 2 partial bank lines referencing INV-1051 (1,357.59 + 1,897.04) = invoice amount.</p>
+    </div>
+
+    <div class="case exc">
+      <div class="meta"><span class="tag">exception · orphan_bank_txn</span><span>BTX-9008</span></div>
+      <p>Bank line "PMT REF INV-1007 INITECH SOL" (amount 8,686.25) references no known invoice or matches none within tolerance.</p>
+    </div>
+
+    <div class="case false">
+      <div class="meta"><span class="tag">false match</span><span>INV-1020 · tier 2 · conf 0.65</span></div>
+      <p>Matched by vendor-name similarity (0.37) + amount + date to BTX-9054 — but INV-1020 was actually half of a combined payment settled in BTX-9019 alongside INV-1021.</p>
+      <p class="why">Why it happened: Tier 2's vendor-fuzzy fallback claimed the bank line before Tier 3 could test the combined-payment hypothesis. Fix: run Tier 3's multi-invoice check before Tier 2's unreferenced-memo fallback, or require a similarity-margin check when two candidates are close.</p>
+    </div>
+  </section>
+
+  <footer>
+    <b>Stack:</b> Python, deterministic Tier 1–2 (exact + fuzzy/date/amount/vendor), rule-based Tier 3 reasoning engine for reproducible offline scoring.
+    <b>Production path:</b> <code style="font-family:var(--mono)">pipeline/tier3_llm_agent.py</code> swaps Tier 3 for a real Claude tool-use agent (lookup_invoice / lookup_bank_txn / compute_delta / flag_exception) — same input/output contract.
+  </footer>
+
+</div>
+</body>
+</html>

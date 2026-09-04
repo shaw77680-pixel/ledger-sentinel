@@ -1,0 +1,39 @@
+{
+  "total_ground_truth_invoice_records": 62,
+  "should_auto_match": 61,
+  "should_be_exception": 4,
+  "matches_made": 59,
+  "correct_matches": 58,
+  "false_matches": 1,
+  "exceptions_correctly_flagged": 4,
+  "exceptions_missed": 0,
+  "match_rate_pct": 96.7,
+  "precision_on_matches_pct": 98.3,
+  "exception_recall_pct": 100.0,
+  "false_match_rate_pct": 1.7,
+  "tier_breakdown": {
+    "1_exact": 31,
+    "2_fuzzy_vendor": 16,
+    "2_fuzzy_amount": 3,
+    "2_fuzzy_timing": 5,
+    "3_agent": 4
+  },
+  "category_totals": {
+    "clean_match": 40,
+    "amount_discrepancy": 3,
+    "duplicate_payment": 3,
+    "orphan_invoice": 1,
+    "timing_difference": 9,
+    "combined_payment": 4,
+    "split_payment": 2
+  },
+  "category_correct": {
+    "clean_match": 39,
+    "amount_discrepancy": 3,
+    "duplicate_payment": 3,
+    "orphan_invoice": 1,
+    "timing_difference": 9,
+    "combined_payment": 2,
+    "split_payment": 2
+  }
+}
